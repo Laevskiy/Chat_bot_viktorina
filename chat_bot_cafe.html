@@ -1,0 +1,189 @@
+<html>
+
+<body>
+
+    <h1>Оформление заказа</h1>
+    <h3>Сумма вашего заказа:<div id="show-schet"></div></h3>
+<form name="order">
+    <p><label>
+    Ваше имя : <input name="name" placeholder="Имя">
+    </label> </p> 
+    
+    <p><label>
+    Ваш номер телефона:<input name="number" placeholder="Номер телефона..." >
+    </label> </p>
+
+<div id = "photo"> 
+  <img class ="img" src="https://s1.1zoom.ru/big3/796/Coffee_Cappuccino_Cup_Saucer_528228_5263x3509.jpg">
+</div>
+</form>
+        
+        <select id="typecoffe" onchange="sumi()" >
+	<option value="espresso">Эспрессо</option>
+	<option value="latte">Латте</option>
+	<option value="americano">Американо</option>
+	</select>
+<div id = "grid">
+        <button class="btn" onclick="minus()" type="button" name="-">-</button>
+	<div id="show-here"></div>
+	<button class="btn" onclick="plus()" type="button" name="+">+</button>
+</div>
+	<p><select id="setsize" onchange="sumi()">
+	<option value="250">250 гр</option>
+	<option value="350">350 гр</option>
+	<option value="500">500 гр</option>
+	</select></p>
+
+    <button class="btn" onclick="ord()" type="button" name="order">Заказ</button><br>
+
+
+<script type="text/javascript">
+        let chet = 0;
+        let i = 0 ;
+	var div = document.getElementById('show-here');
+	div.innerHTML = i;
+        var s =  document.getElementById("setsize").value;
+        var n =  document.getElementById("typecoffe").value;
+
+	function plus() {
+	++i;
+	div.innerHTML = i;
+        sumi();
+
+	}
+
+	function minus() {
+        if (i != 0) {
+   	--i;
+	div.innerHTML = i;
+        sumi()
+	}}
+
+        function sumi() {
+        let z = 0;
+        let u = 0;
+
+        var div2 = document.getElementById('show-schet');
+        var s =  document.getElementById("setsize").value;
+
+        if (s == "250") {
+           z = 1;}
+        else if (s == "350"){
+           z = 1.2;}
+        else if (s == "500"){
+           z = 1.4;}
+
+        var n =  document.getElementById("typecoffe").value;
+         if (n == "espresso") {
+           u = 1;}
+        else if (n == "latte"){
+           u = 2;}
+        else if (n == "americano"){
+           u = 3;}
+        chet = ((z + u) * i).toFixed(2);
+        div2.innerHTML = chet;
+        }
+
+        function ord() { 
+        
+        var name = document.forms.order.name.value;
+        var number = document.forms.order.number.value;
+        var s =  document.getElementById("setsize").value;
+        var n =  document.getElementById("typecoffe").value;
+	alert(name+'\n'+number + '\n' + i + '\n' + s + '\n' + n);
+
+        let order = {
+        name: name,
+        number: number,
+        type: n,
+        size: s,
+        kol : i,
+        price: chet,
+        };
+        
+        let ansver = JSON.stringify(order);
+        console.log(ansver)
+}
+
+        
+
+
+sumi()
+    
+</script>
+
+<style>
+#grid {
+margin-left:120px;
+margin-right:120px;
+margin-top:20px;
+display:grid;
+grid-template-columns: 1fr 1fr 1fr;
+
+text-align: center;
+}
+
+#show-here{
+ text-align: center;
+ font-size:20px;
+}
+
+.img{
+ max-width: 100%;
+ height: auto;
+ border-radius:10px;
+
+  
+}
+
+#photo{
+ max-width: 40%;
+ text-align: center;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ 
+}
+
+label{
+ font-size:20px;
+}
+
+input {
+  width: 100%;
+  margin-top:5px;
+  height: 40px;
+  font-size:20px;
+  border-radius:10px;
+}
+
+body {
+  margin:20px;
+  background-color:#b5b4d9;
+  
+}
+
+select {
+  width: 100%;
+  padding:10px;
+  border-radius:10px;
+  text-align: center;
+  background-color: #8affff;
+  height: 50px;
+  font-size:20px;
+}
+
+.btn {
+background-color: #00b899;
+width: 100%;
+border-radius:10px;
+height: 50px;
+font-size: 20px;
+
+}	
+</style>
+
+
+</body>
+
+</html>
